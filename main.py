@@ -2,13 +2,13 @@ from functions import get_todos, overwrite_todos
 from datetime import datetime
 
 date_time_now = datetime.strftime(datetime.now(), '%b %d %H:%M:%S')
+todos = get_todos()
 
 
 class ToDo:
 
     while True:
         print(f"Today is {date_time_now}")
-        todos = get_todos()
         user_action = input("Type show, add, edit, done, or exit: ").lower()
 
         if user_action.startswith('add'):
