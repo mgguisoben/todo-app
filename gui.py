@@ -2,6 +2,8 @@ from functions import todos_list, overwrite_todos
 from datetime import datetime
 import PySimpleGUI as sg
 
+# sg.main() # Update PySimpleGUI from GitHub
+
 date_time_now = datetime.strftime(datetime.now(), '%b %d %H:%M:%S')
 todos = todos_list()
 
