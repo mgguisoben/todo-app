@@ -8,9 +8,9 @@ def get_todos():
 
 
 def todos_list():
-    data = get_todos()
-    new_list = [todo.strip('\n') for todo in data]
-    return new_list
+    todos = get_todos()
+    new_todos = [todo.strip('\n') for todo in todos]
+    return new_todos
 
 
 def overwrite_todos(data):
