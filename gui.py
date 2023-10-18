@@ -7,11 +7,12 @@ todos = todos_list()
 
 dt_label = sg.Text(date_time_now)
 todo_label = sg.Text('Enter new To-Do:')
-input_box = sg.InputText(key='_INPUT_', do_not_clear=False, size=50)
-add_button = sg.Button('Add', size=10)
-list_box = sg.Listbox(todos, key='_LISTBOX_', size=(48, 6), enable_events=True, highlight_background_color='blue')
-edit_button = sg.Button('Edit', size=4)
-done_button = sg.Button('Done', size=4)
+input_box = sg.InputText(key='_INPUT_', do_not_clear=False, size=49)
+add_button = sg.Button('Add', size=11)
+list_box = sg.Listbox(todos, key='_LISTBOX_', size=(48, 6),
+                      enable_events=True, highlight_background_color='blue')
+edit_button = sg.Button('Edit', size=5)
+done_button = sg.Button('Done', size=5)
 quit_button = sg.Button('Quit', size=10)
 
 layout = [[dt_label],
@@ -39,18 +40,28 @@ while True:
         window.Element('_LISTBOX_').update(todos)
 
     elif event == 'Done':
-        todo = values['_LISTBOX_'][0]
-        index = todos.index(todo)
-        todos.pop(index)
-        overwrite_todos(todos)
-        window.Element('_LISTBOX_').update(todos)
+        try:
+            todo = values['_LISTBOX_'][0]
+            index = todos.index(todo)
+            todos.pop(index)
+            overwrite_todos(todos)
+            window.Element('_LISTBOX_').update(todos)
+
+        except IndexError:
+            sg.popup('Select an item first.', font=('Helvetica', 20),
+                     no_titlebar=True, button_justification='center')
 
     elif event == 'Edit':
-        todo = values['_LISTBOX_'][0]
-        new_todo = values['_INPUT_']
-        index = todos.index(todo)
-        todos[index] = new_todo
-        overwrite_todos(todos)
-        window.Element('_LISTBOX_').update(todos)
+        if values['_INPUT_'] == '':
+            sg.popup('To-do is empty.', font=('Helvetica', 20),
+                     no_titlebar=True, button_justification='center')
+
+        else:
+            todo = values['_LISTBOX_'][0]
+            new_todo = values['_INPUT_']
+            index = todos.index(todo)
+            todos[index] = new_todo
+            overwrite_todos(todos)
+            window.Element('_LISTBOX_').update(todos)
 
 window.close()
